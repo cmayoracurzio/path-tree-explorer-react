@@ -1,1 +1,1 @@
-// File intended for TreeExplorer component unit tests
+// Placeholder file intended for TreeExplorer component unit tests

@@ -44,9 +44,11 @@ const List = styled.ul`
  */
 const TreeExplorer: React.FC = () => {
   const { paths, isError, isLoading } = usePaths();
+
+  // Result of convertPathToTrees is memoized to improve performance, assuming it is computationally expensive
   const trees = useMemo(() => convertPathsToTrees(paths), [paths]);
 
-  // Determine main content based on state
+  // Main content depends on state
   let content;
   if (isError) {
     content = (
