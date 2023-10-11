@@ -1,8 +1,8 @@
 # Backlog
 
-- Style component with styled components (style, responsiveness, feedback on every interaction)
-- Write README.md
 - Unit tests
+- Write README.md
+- Review how to fetch paths mock function
 - Deploy to GitHub pages?
 
 - Considerations for production-ready React projects:
