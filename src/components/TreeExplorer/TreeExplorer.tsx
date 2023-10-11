@@ -1,21 +1,9 @@
 import styled from "styled-components";
-import { useMemo } from "react";
-import usePaths from "../../hooks/usePaths";
-import { convertPathsToTrees } from "../../lib/utils";
+import useTrees from "../../hooks/useTrees";
 import TreeNode from "../TreeNode/TreeNode";
 
 const Container = styled.div`
-  background-color: #f9f9f9;
-  border-right: 1px solid #ccc;
-  width: 250px;
-  height: 100vh;
-  overflow-y: auto;
-`;
-
-const Content = styled.div`
   padding: 1.5rem;
-  font-family: "Inter", sans-serif;
-  color: #333;
 `;
 
 const Title = styled.h1`
@@ -34,23 +22,22 @@ const List = styled.ul`
 `;
 
 /**
- * `TreeExplorer` - A React component that fetches paths, converts them into a tree structure,
- * and renders the tree interactively. It also handles different states like loading, errors,
- * and the scenario when no paths are found.
+ * `TreeExplorer` - A React component that visualizes paths in an interactive tree structure.
  *
- * The component relies on the `usePaths` hook to fetch path data and on the `convertPathsToTrees`
- * utility function to transform flat path data into a structured tree form.
+ * Given a string representation of paths, this component parses the paths and then renders
+ * the corresponding tree. It manages various states, including loading, errors, and cases
+ * where no paths are found.
+ *
+ * Internally, the component leverages the `useTrees` hook to handle the paths and convert
+ * them into tree structures.
  *
  */
-const TreeExplorer: React.FC = () => {
-  const { paths, isError, isLoading } = usePaths();
+const TreeExplorer = ({ pathsString }: { pathsString: string }) => {
+  const { trees, isError, isLoading } = useTrees(pathsString);
 
-  // Result of convertPathToTrees is memoized to improve performance, assuming it is computationally expensive
-  const trees = useMemo(() => convertPathsToTrees(paths), [paths]);
-
-  // Main content depends on state
+  // Tree content depends on state
   let content;
-  if (isError) {
+  if (isError || !trees) {
     content = (
       <Message role="alert">
         There was an error. Paths could not be loaded.
@@ -58,8 +45,6 @@ const TreeExplorer: React.FC = () => {
     );
   } else if (isLoading) {
     content = <Message role="status">Loading...</Message>;
-  } else if (paths.length === 0) {
-    content = <Message>No paths found.</Message>;
   } else {
     content = (
       <List role="tree" aria-label="Path Tree Explorer">
@@ -72,10 +57,8 @@ const TreeExplorer: React.FC = () => {
 
   return (
     <Container>
-      <Content>
-        <Title>Path Tree Explorer:</Title>
-        {content}
-      </Content>
+      <Title>Path Tree Explorer:</Title>
+      {content}
     </Container>
   );
 };
