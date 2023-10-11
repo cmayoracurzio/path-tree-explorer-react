@@ -38,6 +38,7 @@ const usePaths = (): {
           setIsLoading(false);
         }
       } catch (error) {
+        // Any errors can be logged here
         console.error(error);
         setIsError(true);
         setIsLoading(false);
