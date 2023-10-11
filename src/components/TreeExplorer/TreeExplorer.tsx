@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { useMemo } from "react";
-import usePaths from "../hooks/usePaths";
-import { convertPathsToTrees } from "../lib/utils";
-import TreeNode from "./TreeNode";
+import usePaths from "../../hooks/usePaths";
+import { convertPathsToTrees } from "../../lib/utils";
+import TreeNode from "../TreeNode/TreeNode";
 
 const Container = styled.div`
   background-color: #f9f9f9;

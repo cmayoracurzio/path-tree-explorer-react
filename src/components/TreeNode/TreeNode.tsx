@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { TreeNodeStructure } from "../types/TreeNodeStructure";
+import { TreeNodeStructure } from "../../types/TreeNodeStructure";
 
 const ListItem = styled.li`
   list-style: none;
